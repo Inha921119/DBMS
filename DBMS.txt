@@ -59,7 +59,7 @@ CREATE TABLE article(
 );
 
 # 잘 추가되었는지 확인
-SELECT * FROM article;
+SHOW TABLES;
 
 # 제목은 '제목1', 내용은 '내용1'인 데이터 하나 추가 
 INSERT INTO article
