@@ -126,3 +126,13 @@ INSERT INTO article
 
 # 데이터 확인
 SELECT * FROM article;
+
+# 현재 auto_increment의 값을 알아내는법
+SHOW TABLE STATUS WHERE NAME = 'article';
+
+SELECT LAST_INSERT_ID();
+
+SELECT AUTO_INCREMENT
+    FROM information_schema.tables
+WHERE TABLE_NAME = 'article'
+    AND table_schema = DATABASE( );
