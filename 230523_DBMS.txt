@@ -70,6 +70,7 @@ INSERT INTO article
         `body` = '내용2';
 
 # id컬럼에 unique 제약을 걸어야 한다. not null 제약을 걸어야 한다.
+
 # 컬럼에 제약을 거는 방법
 # 1. 테이블 만들 때 
 # 2. 테이블 구조 변경으로 
