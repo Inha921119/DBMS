@@ -74,7 +74,8 @@ INSERT INTO article
 # 컬럼에 제약을 거는 방법
 # 1. 테이블 만들 때 
 # 2. 테이블 구조 변경으로 
-ALTER TABLE article MODIFY COLUMN id INT UNIQUE NOT NULL;
+# ALTER TABLE article MODIFY COLUMN id INT UNIQUE NOT NULL;
+ALTER TABLE article MODIFY COLUMN id INT NOT NULL PRIMARY KEY;
 
 # 다시 테스트하기 위해 aritlce 데이터 삭제
 DELETE FROM article;
