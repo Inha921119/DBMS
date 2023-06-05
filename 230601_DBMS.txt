@@ -71,7 +71,7 @@ SELECT DISTINCT(job)
     FROM emp;
 
 #5. 총 사원수를 구하시오. (hint : count)
-SELECT COUNT(*)
+SELECT COUNT(empno)
     FROM emp;
 
 #6. 부서번호가 10인 사원을 조회하시오.
@@ -121,7 +121,8 @@ SELECT ename
     , job
     , deptno
     FROM emp
-    WHERE deptno = 30;
+    WHERE jpb = 'MENAGER'
+        AND deptno = 30;
 
 #14. 부서번호가 30인 아닌 사원의 사번,이름,부서번호를 조회하시오. (not)
 SELECT empno
@@ -135,7 +136,8 @@ SELECT empno
     , ename
     , comm
     FROM emp
-    WHERE comm NOT IN(300, 500, 1400);
+    WHERE comm NOT IN(300, 500, 1400)
+        OR comm IS NULL;
 
 #16. 이름에 S가 포함되지 않는 사원의 사번,이름을 조회하시오. (hint : not like)
 SELECT empno
@@ -148,7 +150,7 @@ SELECT empno
     , ename
     , sal
     FROM emp
-    WHERE NOT sal BETWEEN 1200 AND 3700;
+    WHERE sal NOT BETWEEN 1200 AND 3700;
 
 #18. 직속상사가 NULL 인 사원의 이름과 직급을 조회하시오. (hint : is null, is not null)
 SELECT ename
@@ -164,7 +166,7 @@ SELECT deptno, AVG(sal)
 #20. 부서별 전체 사원수와 커미션을 받는 사원들의 수를 구하는 쿼리 (hint : group by, count())
 SELECT deptno
     , COUNT(*)
-    , COUNT(comm)
+    , COUNT(CASE WHEN comm != 0 THEN comm END)
     FROM emp
     GROUP BY deptno;
 
@@ -217,7 +219,7 @@ SELECT emp.ename
 
 #27. 이름,직속상사이름을 조회하시오. (hint : self join
 SELECT e1.ename
-    , e2.ename AS mgrname
+    , e2.ename AS mgr
     FROM emp AS e1
     INNER JOIN emp AS e2
     ON e1.mgr = e2.empno;
@@ -225,7 +227,7 @@ SELECT e1.ename
 #28. 이름,직속상사이름을 조회하시오.(단 직속 상사가 없는 사람도 직속상사 결과가 null값으로 나와야 함) (hint : outer join)
 ###외부OUTER 조인. A LEFT JOIN B는 조인 조건에 만족하지 못하더라도 왼쪽 테이블 A의 행을 나타내고 싶을 때 사용한다. 반대로 A RIGHT JOIN B는 조인 조건에 만족하지 못하더라도 오른쪽 테이블 B의 행을 나타내고 싶을 때
 SELECT e1.ename
-    , e2.ename AS mgrname
+    , e2.ename AS mgr
     FROM emp AS e1
-    LEFT OUTER JOIN emp AS e2
+    LEFT JOIN emp AS e2
     ON e1.mgr = e2.empno;
