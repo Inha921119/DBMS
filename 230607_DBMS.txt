@@ -1,0 +1,59 @@
+#29. 이름,부서명을 조회하시오.단, 사원테이블에 부서번호가 40에 속한 사원이 없지만 부서번호 40인 부서명도 출력되도록 하시오. (hint : outer join)
+SELECT e.ename
+    , d.dname
+    FROM emp AS e
+    RIGHT OUTER JOIN dept AS d
+    ON e.deptno = d.deptno;
+
+SELECT * FROM emp;
+SELECT * FROM dept;
+SELECT * FROM salgrade;
+
+#서브 쿼리는 SELECT 문 안에서 ()로 둘러싸인 SELECT 문을 말하며 쿼리문의 결과를 메인 쿼리로 전달하기 위해 사용된다.
+#사원명 'JONES'가 속한 부서명을 조회하시오.
+#부서번호를 알아내기 위한 쿼리가 서브 쿼리로 사용.
+SELECT dname
+    FROM dept
+    WHERE deptno = (
+                    SELECT deptno
+                        FROM emp
+                        WHERE ename = 'JONES'
+                   );
+
+#30. 10번 부서에서 근무하는 사원의 이름과 10번 부서의 부서명을 조회하시오. (hint : sub query)
+SELECT ename
+    , (
+        SELECT dname
+        FROM dept
+        WHERE deptno = 10
+      ) AS dname
+    FROM emp
+    WHERE deptno = 10;
+    
+SELECT e.ename
+    , d.dname
+    FROM emp AS e
+    INNER JOIN dept AS d
+    ON e.deptno = d.deptno
+    WHERE e.deptno = 10;
+
+#31. 평균 월급여보다 더 많은 월급여를 받은 사원의 사원번호,이름,월급여 조회하시오. (hint : sub query)
+SELECT empno
+    , ename
+    , sal
+    FROM emp
+    WHERE sal > (
+                SELECT AVG(sal)
+                    FROM emp
+                );
+    
+#32. 부서번호가 10인 사원중에서 최대급여를 받는 사원의 사원번호, 이름을 조회하시오. (hint : sub query)
+SELECT empno
+    , ename
+    FROM emp
+    WHERE deptno = 10
+        AND e.sal = (
+                     SELECT MAX(sal) 
+                        FROM emp 
+                        WHERE deptno = 10
+                     );
